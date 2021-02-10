@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
+import Dashboard from "./components/Dashboard";
 
 const initDashboards = [
   {
@@ -35,9 +36,10 @@ const initDashboards = [
 
 function App() {
   const [dashboards, setDashboards] = useState(initDashboards);
+  const [dashboardInput, setDashboardInput] = useState("");
 
   const deleteDashboard = (id) => {
-    /*     let newDashboard = [];
+    /*let newDashboard = [];
         for (let i = 0; i < dashboards.length; i++) {
           let currentDashboard = dashboards[i];
           if (currentDashboard.id !== id) newDashboard.push(currentDashboard);
@@ -48,33 +50,52 @@ function App() {
 
     /* setDashboards(dashboards.filter((dashboard) => dashboard.id !== id)); */
   };
+  const createDashboard = () => {
+    /*const newDashboard = {
+      id: new Date().getTime(),
+      title: dashboardInput,
+      todoList: [],
+    };
+    const newDashboards = [];
+
+    for (let i = 0; i < dashboards.length; i++) {
+      let currentElement = dashboards[i];
+      newDashboards.push(currentElement);
+    }
+    newDashboards.push(newDashboard);
+    setDashboards(newDashboards); */
+
+    const newDashboards = [
+      ...dashboards,
+      {
+        id: new Date().getTime(),
+        title: dashboardInput,
+        todoList: [],
+      },
+    ];
+    setDashboards(newDashboards);
+    setDashboardInput("");
+  };
 
   return (
     <div className="App">
+      <nav>
+        <input
+          value={dashboardInput}
+          onChange={(e) => setDashboardInput(e.target.value)}
+        ></input>
+        <button onClick={() => createDashboard()}>Add</button>
+      </nav>
       <h1>Hello world</h1>
-      {dashboards.map((dashboard) => (
-        <div className="dashboard" key={dashboard.id}>
-          <h2>{dashboard.title}</h2>
-
-          {dashboard.todoList.map((todo) => (
-            <div className="todo-cards" key={todo.id}>
-              <h3>{todo.name}</h3>
-              <p>{todo.desc}</p>
-            </div>
-          ))}
-          <button onClick={() => deleteDashboard(dashboard.id)}> - </button>
-        </div>
-      ))}
-
-      {/*<div className="dashboard">
-        <h2>{defaultState[1].name}</h2>
-        <div className="todo-cards">
-          <h3>{defaultState[1].todoList[0].name}</h3>
-          <p>{defaultState[1].todoList[0].desc}</p>
-          <h3>{defaultState[1].todoList[1].name}</h3>
-          <p>{defaultState[1].todoList[1].desc}</p>
-        </div>
-      </div> */}
+      <main>
+        {dashboards.map((dashboard) => (
+          <Dashboard
+            key={dashboards.id}
+            dashboard={dashboard}
+            deleteDashboard={deleteDashboard}
+          />
+        ))}
+      </main>
     </div>
   );
 }
