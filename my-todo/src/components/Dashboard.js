@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 
-function Dashboard({ dashboard, deleteDashboard }) {
+function Dashboard({ dashboard, deleteDashboard, renameDashboard }) {
   const [isEdited, setIsEditet] = useState(false);
   const [value, setValue] = useState("");
 
   const toggle = () => {
     setIsEditet(!isEdited);
     setValue(dashboard.title);
+    console.log(value);
+  };
+
+  const save = () => {
+    renameDashboard(value, dashboard.id);
+    setIsEditet(false);
   };
 
   return (
@@ -17,6 +23,7 @@ function Dashboard({ dashboard, deleteDashboard }) {
         <h2>{dashboard.title}</h2>
       )}
       <button onClick={toggle}>{isEdited ? "Cancel" : "Edit"}</button>
+      {isEdited && <button onClick={save}>Ok</button>}
       {dashboard.todoList.map((todo) => (
         <div className="todo-cards" key={todo.id}>
           <h3>{todo.name}</h3>

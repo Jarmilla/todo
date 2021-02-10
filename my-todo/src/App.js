@@ -77,6 +77,26 @@ function App() {
     setDashboardInput("");
   };
 
+  const renameDashboard = (newTitle, id) => {
+    const newDashboards = dashboards.map((dashboard) => ({
+      ...dashboard,
+      title: id === dashboard.id ? newTitle : dashboard.title,
+    }));
+
+    /*     for (let i = 0; i < dashboards.length; i++) {
+      let currElement = dahboards[i];
+      let newObject.title = {};
+      newObject.id = currElement.id;
+      newObject.todoList = currElement.todoList;
+      if (currElement.id === id) {
+        newObject.title = newTitle
+      } else{
+      newObject.title = currElement.title}
+      newDashboards.push(newObject)
+    } */
+    setDashboards(newDashboards);
+  };
+
   return (
     <div className="App">
       <nav>
@@ -92,6 +112,7 @@ function App() {
           <Dashboard
             key={dashboards.id}
             dashboard={dashboard}
+            renameDashboard={renameDashboard}
             deleteDashboard={deleteDashboard}
           />
         ))}
