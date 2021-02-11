@@ -4,10 +4,13 @@ function Dashboard({ dashboard, deleteDashboard, renameDashboard }) {
   const [isEdited, setIsEditet] = useState(false);
   const [value, setValue] = useState("");
 
+  const [todoName, setTodoName] = useState("");
+  const [todoDesc, setTodoDesc] = useState("");
+  const [todoFormShown, setTodoFormShown] = useState(false);
+
   const toggle = () => {
     setIsEditet(!isEdited);
     setValue(dashboard.title);
-    console.log(value);
   };
 
   const save = () => {
@@ -30,6 +33,25 @@ function Dashboard({ dashboard, deleteDashboard, renameDashboard }) {
           <p>{todo.desc}</p>
         </div>
       ))}
+      {todoFormShown ? (
+        <div className="todo">
+          <input
+            placeholder="New Todo"
+            type="text"
+            value={todoName}
+            onChange={(e) => setTodoName(e.target.value)}
+          />
+          <input
+            placeholder="Description"
+            type="text"
+            value={todoDesc}
+            onChange={(e) => setTodoDesc(e.target.value)}
+          />
+          <button onClick={() => setTodoFormShown(false)}>Cancel</button>
+        </div>
+      ) : (
+        <button onClick={() => setTodoFormShown(true)}>New todo</button>
+      )}
       <button onClick={() => deleteDashboard(dashboard.id)}>Delete</button>
     </div>
   );

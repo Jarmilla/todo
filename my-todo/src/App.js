@@ -7,7 +7,11 @@ const initDashboards = [
     id: 1,
     title: "Darren tasks",
     todoList: [
-      { id: 2, name: "protect the priest", desc: "not let yourself deceive" },
+      {
+        id: 2,
+        name: "protect the priestess",
+        desc: "not let yourself deceive",
+      },
       { id: 3, name: "sleep after breakfast", desc: "be ready!" },
     ],
   },
